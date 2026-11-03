@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Dr Karan Dental Clinic – Patient Experience</title>
+  
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Zero-Cost QR Generator Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    :root {
+      --warm-cream: #F2EDE4;
+      --beige: #E6DCCB;
+      --cocoa-brown: #6B4F3F;
+      --dark-brown: #3E3028;
+      --white: #FFFFFF;
+      --gold: #D4AF37;
+      --star-active: #F59E0B;
+      --card-shadow: 0 10px 30px -5px rgba(62, 48, 40, 0.08);
+      --card-shadow-lg: 0 20px 40px -10px rgba(62, 48, 40, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--warm-cream);
+      color: var(--dark-brown);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+
+    .font-serif {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    /* Container Shell */
+    .app-card {
+      width: 100%;
+      max-width: 480px;
+      background: var(--white);
+      border-radius: 28px;
+      border: 1px solid rgba(107, 79, 63, 0.12);
+      box-shadow: var(--card-shadow-lg);
+      padding: 28px 22px;
+      margin: auto 0;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    /* Header Clinic Branding */
+    .clinic-brand {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .clinic-symbol {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--warm-cream), var(--beige));
+      border: 1.5px solid var(--cocoa-brown);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-brown);
+      font-size: 26px;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      box-shadow: 0 4px 12px rgba(62, 48, 40, 0.06);
+      margin-bottom: 10px;
+    }
+
+    .clinic-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--dark-brown);
+      letter-spacing: -0.01em;
+    }
+
+    .clinic-sub {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cocoa-brown);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .brand-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--beige);
+      margin: 12px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Screens Management */
+    .screen {
+      display: none;
+      animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Typography & Utility */
+    .screen-heading {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark-brown);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .screen-subtitle {
+      font-size: 13.5px;
+      color: var(--cocoa-brown);
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+
+    /* Treatment Grid */
+    .treatment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      max-height: 340px;
+      overflow-y: auto;
+      padding: 4px 2px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--beige) transparent;
+    }
+
+    .treatment-grid::-webkit-scrollbar {
+      width: 4px;
+    }
+    .treatment-grid::-webkit-scrollbar-thumb {
+      background: var(--beige);
+      border-radius: 4px;
+    }
+
+    .treatment-card {
+      background: var(--warm-cream);
+      border: 1.5px solid transparent;
+      border-radius: 16px;
+      padding: 12px 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .treatment-card:hover {
+      background: #EBE5DC;
+    }
+
+    .treatment-card.selected {
+      background: #FFFFFF;
+      border-color: var(--cocoa-brown);
+      box-shadow: 0 4px 14px rgba(107, 79, 63, 0.15);
+    }
+
+    .treatment-icon {
+      font-size: 18px;
+    }
+
+    .treatment-name {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--dark-brown);
+      line-height: 1.3;
+    }
+
+    /* Interactive Stars */
+    .star-rating-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 18px 0 10px;
+    }
+
+    .star-btn {
+      background: none;
+      border: none;
+      font-size: 38px;
+      color: var(--beige);
+      cursor: pointer;
+      transition: transform 0.15s ease, color 0.15s ease;
+      line-height: 1;
+    }
+
+    .star-btn:active {
+      transform: scale(0.85);
+    }
+
+    .star-btn.active {
+      color: var(--star-active);
+      text-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
+    }
+
+    .rating-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cocoa-brown);
+      min-height: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* Writing Prompts Box */
+    .prompts-container {
+      background: var(--warm-cream);
+      border-radius: 18px;
+      padding: 16px;
+      margin: 16px 0 20px;
+      border: 1px dashed rgba(107, 79, 63, 0.25);
+    }
+
+    .prompts-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--cocoa-brown);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .prompt-chip {
+      background: #FFFFFF;
+      border: 1px solid rgba(107, 79, 63, 0.15);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--dark-brown);
+      line-height: 1.4;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .prompt-chip:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 18px;
+      padding: 16px 20px;
+      font-size: 14.5px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 18px rgba(62, 48, 40, 0.12);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--cocoa-brown);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--dark-brown);
+    }
+
+    .btn-google {
+      background: var(--dark-brown);
+      color: #FFFFFF;
+      box-shadow: 0 8px 24px rgba(62, 48, 40, 0.2);
+      font-size: 15px;
+    }
+
+    .btn-google:hover {
+      background: #251D18;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--cocoa-brown);
+      box-shadow: none;
+      font-size: 13px;
+      padding: 10px;
+      margin-top: 6px;
+    }
+
+    .btn-secondary:hover {
+      text-decoration: underline;
+    }
+
+    /* Trust Footer */
+    .privacy-notice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--cocoa-brown);
+      margin-top: 18px;
+      opacity: 0.8;
+      text-align: center;
+    }
+
+    /* Print & QR Management Area */
+    .stand-controls {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .stand-link {
+      font-size: 12px;
+      color: var(--cocoa-brown);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* Printable A5 Stand Styling */
+    #print-stand {
+      display: none;
+    }
+
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .app-card, .stand-controls, footer {
+        display: none !important;
+      }
+      #print-stand {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 148mm;
+        height: 205mm;
+        margin: auto;
+        padding: 18mm 12mm;
+        border: 2px solid #6B4F3F;
+        border-radius: 16px;
+        text-align: center;
+        background: #FAF8F5;
+        box-sizing: border-box;
+      }
+      .stand-logo {
+        width: 70px;
+        height: 70px;
+        border: 2px solid #6B4F3F;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Playfair Display', serif;
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 auto 12px;
+        color: #3E3028;
+      }
+      .stand-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: #3E3028;
+      }
+      .stand-location {
+        font-size: 13px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #6B4F3F;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+      .stand-headline {
+        font-size: 24px;
+        font-weight: 800;
+        color: #3E3028;
+        letter-spacing: 0.05em;
+        margin: 16px 0 6px;
+      }
+      .stand-subline {
+        font-size: 15px;
+        color: #6B4F3F;
+        font-weight: 500;
+      }
+      .stand-qr-box {
+        background: #FFFFFF;
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid #E6DCCB;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        margin: 18px 0;
+        display: inline-block;
+      }
+      .stand-qr-box img {
+        width: 190px !important;
+        height: 190px !important;
+      }
+      .stand-footer-tag {
+        font-size: 12px;
+        font-weight: 600;
+        color: #6B4F3F;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MAIN PATIENT APPLICATION CARD -->
+  <main class="app-card" role="main">
+
+    <!-- CLINIC BRANDING -->
+    <header class="clinic-brand">
+      <div class="clinic-symbol">K</div>
+      <h1 class="clinic-name font-serif">Dr Karan Dental Clinic</h1>
+      <p class="clinic-sub">Samana, Punjab</p>
+      <div class="brand-divider"></div>
+    </header>
+
+    <!-- SCREEN 1: WELCOME SCREEN -->
+    <section id="screen-welcome" class="screen active" aria-labelledby="welcome-title">
+      <h2 id="welcome-title" class="screen-heading font-serif">Thank you for trusting us with your smile!</h2>
+      <p class="screen-subtitle">We would love to hear about your experience. Your feedback helps our clinic maintain the highest quality of patient care.</p>
+      
+      <button type="button" class="btn btn-primary" onclick="showScreen('screen-treatment')">
+        <span>Share Your Experience</span>
+        <span>→</span>
+      </button>
+
+      <div class="privacy-notice">
+        <span>🔒</span>
+        <span>Takes 30–45 seconds. No account needed.</span>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: TREATMENT SELECTION -->
+    <section id="screen-treatment" class="screen" aria-labelledby="treatment-title">
+      <h2 id="treatment-title" class="screen-heading font-serif">What treatment did you receive?</h2>
+      <p class="screen-subtitle">Select one or more procedures received during your visit.</p>
+
+      <div class="treatment-grid" id="treatment-list" role="group" aria-label="Dental Treatments">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <div style="margin-top: 18px;">
+        <button type="button" class="btn btn-primary" onclick="proceedToRating()">
+          <span>Continue to Rating</span>
+          <span>→</span>
+        </button>
+        <button type="button" class="btn btn-secondary" onclick="showScreen('screen-welcome')">
+          ← Back to Welcome
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: STAR RATING & SMART PROMPTS -->
+    <section id="screen-rating" class="screen" aria-labelledby="rating-title">
+      <h2 id="rating-title" class="screen-heading font-serif">How was your experience at our clinic?</h2>
+      <p class="screen-subtitle">Select a rating below to view helpful review suggestions.</p>
+
+      <!-- 5-Star Selector -->
+      <div class="star-rating-container" role="radiogroup" aria-label="Star Rating">
+        <button type="button" class="star-btn" onclick="setRating(1)" aria-label="1 Star">★</button>
+        <button type="button" class="star-btn" onclick="setRating(2)" aria-label="2 Stars">★</button>
+        <button type="button" class="star-btn" onclick="setRating(3)" aria-label="3 Stars">★</button>
+        <button type="button" class="star-btn" onclick="setRating(4)" aria-label="4 Stars">★</button>
+        <button type="button" class="star-btn" onclick="setRating(5)" aria-label="5 Stars">★</button>
+      </div>
+      <div id="rating-label" class="rating-label">Tap a star to rate</div>
+
+      <!-- Smart Suggestions Box -->
+      <div class="prompts-container">
+        <div class="prompts-title">
+          <span>💡</span>
+          <span>Helpful points to mention in your review:</span>
+        </div>
+        <div id="prompts-list">
+          <div class="prompt-chip">Select your star rating above to load relevant review ideas.</div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary" id="btn-to-finish" onclick="proceedToGoogleStep()">
+        <span>Continue to Google Review</span>
+        <span>→</span>
+      </button>
+
+      <button type="button" class="btn btn-secondary" onclick="showScreen('screen-treatment')">
+        ← Back to Treatments
+      </button>
+    </section>
+
+    <!-- SCREEN 4: GOOGLE REVIEW REDIRECTION -->
+    <section id="screen-google" class="screen" aria-labelledby="thankyou-title">
+      <div style="text-align: center; font-size: 40px; margin-bottom: 12px;">🌟</div>
+      <h2 id="thankyou-title" class="screen-heading font-serif">Thank you for sharing your experience!</h2>
+      <p class="screen-subtitle">Your feedback helps us continuously improve our services. You can now leave an honest, independent review directly on our Google Business Profile.</p>
+
+      <!-- Direct Google Business Action -->
+      <a id="google-review-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-google">
+        <span>⭐ WRITE A GOOGLE REVIEW</span>
+      </a>
+
+      <button type="button" class="btn btn-secondary" onclick="restartFlow()" style="margin-top: 14px;">
+        Start Over
+      </button>
+
+      <div class="privacy-notice" style="margin-top: 24px;">
+        <span>✓</span>
+        <span>Every patient receives direct, transparent access to write a public review.</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PRINTABLE COUNTER STAND VIEW (A5) -->
+  <div id="print-stand">
+    <div>
+      <div class="stand-logo">K</div>
+      <div class="stand-title">Dr Karan Dental Clinic</div>
+      <div class="stand-location">Samana, Punjab</div>
+      <div style="width: 40px; height: 2px; background: #E6DCCB; margin: 10px auto;"></div>
+    </div>
+
+    <div>
+      <div class="stand-headline">HOW WAS YOUR EXPERIENCE?</div>
+      <div class="stand-subline">Scan the QR code and share your feedback.</div>
+
+      <div class="stand-qr-box">
+        <div id="printable-qrcode"></div>
+      </div>
+
+      <p style="font-size: 13px; color: #3E3028; font-weight: 500;">
+        Open your phone camera to scan • Takes 30 seconds
+      </p>
+    </div>
+
+    <div>
+      <p class="stand-footer-tag">Your Smile. Your Experience. Your Feedback.</p>
+      <p style="font-size: 11px; color: #6B4F3F; margin-top: 4px;">Dr Karan Garg • Samana, Punjab</p>
+    </div>
+  </div>
+
+  <!-- CLINIC DESK PRINT CONTROLS -->
+  <div class="stand-controls">
+    <button type="button" class="stand-link" onclick="window.print()">
+      🖨️ Print Clinic Counter Stand (A5)
+    </button>
+  </div>
+
+  <footer style="margin-top: 16px; text-align: center; font-size: 11px; color: #6B4F3F; opacity: 0.7;">
+    SmileReview • Dr Karan Dental Clinic, Samana
+  </footer>
+
+  <script>
+    /* =====================================================================
+       1. CLINIC CONFIGURATION & DIRECT GOOGLE MAPS LINK
+       ===================================================================== */
+    const CLINIC_CONFIG = {
+      name: "Dr Karan Dental Clinic",
+      owner: "Dr Karan Garg",
+      location: "Samana, Punjab, India",
+      // Verified direct Google Maps search link for clinic review submission
+      googleReviewUrl: "https://www.google.com/maps/search/?api=1&query=Dr+Karan+Dental+Clinic+Samana+Punjab+India"
+    };
+
+    /* =====================================================================
+       2. TREATMENTS LIST (17 Required Services)
+       ===================================================================== */
+    const TREATMENTS = [
+      { id: "consultation", name: "Dental Consultation", icon: "🩺" },
+      { id: "scaling", name: "Scaling & Polishing", icon: "✨" },
+      { id: "deep_cleaning", name: "Deep Cleaning", icon: "🛡️" },
+      { id: "composite_filling", name: "Composite Filling", icon: "🦷" },
+      { id: "rct", name: "Root Canal Treatment", icon: "🔬" },
+      { id: "tooth_extraction", name: "Tooth Extraction", icon: "🩹" },
+      { id: "surgical_extraction", name: "Surgical Extraction", icon: "💉" },
+      { id: "implants", name: "Dental Implants", icon: "🔩" },
+      { id: "zirconia_crown", name: "Zirconia Crown", icon: "👑" },
+      { id: "pfm_crown", name: "PFM Crown", icon: "💎" },
+      { id: "bridges", name: "Dental Bridges", icon: "🌉" },
+      { id: "veneers", name: "Veneers", icon: "😁" },
+      { id: "whitening", name: "Teeth Whitening", icon: "⚡" },
+      { id: "orthodontics", name: "Orthodontic Treatment", icon: "📐" },
+      { id: "dentures", name: "Dentures", icon: "🤝" },
+      { id: "pediatric", name: "Pediatric Dentistry", icon: "🧸" },
+      { id: "other", name: "Other", icon: "➕" }
+    ];
+
+    /* =====================================================================
+       3. CONTEXTUAL SUGGESTIONS (Zero Hallucination / Factually Grounded)
+       ===================================================================== */
+    const TREATMENT_PROMPTS = {
+      rct: [
+        "How comfortable did you feel during the procedure?",
+        "Did Dr Karan explain the steps clearly before starting?",
+        "How would you rate the pain management and clinic cleanliness?",
+        "What would you like other patients needing a root canal to know?"
+      ],
+      scaling: [
+        "How clean and refreshed do your teeth feel after polishing?",
+        "How gentle and comfortable was the cleaning session?",
+        "How was the reception staff and overall clinic hygiene?",
+        "How satisfied are you with your visit today?"
+      ],
+      deep_cleaning: [
+        "How was your comfort during the deep gum cleaning?",
+        "Did the doctor explain post-cleaning gum care advice?",
+        "How was the friendliness and care of the clinic team?",
+        "How clean and hygienic was the treatment operatory?"
+      ],
+      composite_filling: [
+        "How naturally does the tooth-colored filling blend with your smile?",
+        "How smooth was the procedure without discomfort?",
+        "Did the doctor check your bite thoroughly after the restoration?",
+        "How prompt and organized was your appointment time?"
+      ],
+      implants: [
+        "How detailed was Dr Karan's implant consultation and treatment plan?",
+        "Were the steps, safety, and recovery timeline explained clearly?",
+        "How reassuring was the environment and surgical care?",
+        "What advice would you share with someone considering implants here?"
+      ],
+      tooth_extraction: [
+        "How gentle and quick was the extraction process?",
+        "Were the aftercare instructions and precautions explained properly?",
+        "Did the clinic team ensure you remained relaxed throughout?",
+        "How satisfied were you with the pain relief provided?"
+      ],
+      surgical_extraction: [
+        "How comfortable and reassured did you feel during surgery?",
+        "Did the doctor communicate clearly at each stage?",
+        "How was the post-operative guidance and prescription briefing?",
+        "How would you describe the sterilization and clinic standards?"
+      ],
+      zirconia_crown: [
+        "How natural does your new Zirconia crown look and feel?",
+        "How comfortable was the measurement and fitting appointment?",
+        "How would you describe Dr Karan's attention to precision and aesthetics?",
+        "How satisfied are you with chewing comfort?"
+      ],
+      pfm_crown: [
+        "How well does the crown match your existing teeth?",
+        "How was your overall experience during preparation and placement?",
+        "Was the procedure smooth and comfortable?",
+        "How would you rate the clinic's care and timeliness?"
+      ],
+      bridges: [
+        "How comfortable does your dental bridge feel when eating and speaking?",
+        "Did the doctor explain hygiene and maintenance under the bridge?",
+        "How was the precision of your tooth fitting?",
+        "How satisfied are you with the restoration of your smile?"
+      ],
+      veneers: [
+        "How happy are you with the look and shade of your new smile?",
+        "How attentive was the doctor to your aesthetic preferences?",
+        "How comfortable was the bonding and preparation visit?",
+        "What would you like friends and family to know about your smile makeover?"
+      ],
+      whitening: [
+        "How noticeable was the brightening result after your treatment?",
+        "How comfortable was the whitening procedure on your gums and teeth?",
+        "Did the clinic share helpful tips to maintain your bright smile?",
+        "How satisfied are you with the time taken and clinic ambiance?"
+      ],
+      orthodontics: [
+        "How clearly were your alignment progress and instructions explained?",
+        "How welcoming and accommodating is the clinic for routine checkups?",
+        "How comfortable was your adjustment appointment?",
+        "What are your impressions of the overall clinical team?"
+      ],
+      dentures: [
+        "How comfortable and secure do your dentures feel?",
+        "How patiently did the doctor make fitting adjustments?",
+        "Were care and cleaning instructions explained clearly?",
+        "How was your experience with the staff's warmth and patience?"
+      ],
+      pediatric: [
+        "How gentle and patient was the team with your child?",
+        "Did the doctor make your child feel relaxed and safe?",
+        "How child-friendly was the clinic atmosphere?",
+        "How clearly were cavity prevention tips explained to parents?"
+      ],
+      consultation: [
+        "How thoroughly did Dr Karan examine and explain your dental condition?",
+        "Were all your questions and treatment choices answered patiently?",
+        "How welcoming was the reception and waiting area?",
+        "Would you recommend this clinic to family and friends in Samana?"
+      ],
+      other: [
+        "How would you describe your overall appointment experience today?",
+        "How attentive and professional was Dr Karan and his team?",
+        "How was the cleanliness, hygiene, and clinic comfort?",
+        "What stood out most positively about your visit?"
+      ]
+    };
+
+    const RATING_TEXTS = {
+      1: "1 Star – Poor (Tell us where we fell short so we can make it right)",
+      2: "2 Stars – Below Expectations (We appreciate your honest feedback)",
+      3: "3 Stars – Average (Help us understand how we can improve)",
+      4: "4 Stars – Very Good (Thank you for sharing your positive visit)",
+      5: "5 Stars – Excellent (We are thrilled you had a wonderful experience!)"
+    };
+
+    /* =====================================================================
+       4. APPLICATION STATE
+       ===================================================================== */
+    let selectedTreatments = [];
+    let selectedRating = 0;
+
+    // Initialize UI
+    document.addEventListener("DOMContentLoaded", () => {
+      renderTreatments();
+      setupGoogleLink();
+      generatePrintableQR();
+    });
+
+    function setupGoogleLink() {
+      const linkBtn = document.getElementById("google-review-link");
+      if (linkBtn) {
+        linkBtn.href = CLINIC_CONFIG.googleReviewUrl;
+      }
+    }
+
+    function renderTreatments() {
+      const grid = document.getElementById("treatment-list");
+      grid.innerHTML = "";
+      TREATMENTS.forEach(t => {
+        const card = document.createElement("div");
+        card.className = "treatment-card";
+        card.id = `treatment-${t.id}`;
+        card.onclick = () => toggleTreatment(t.id);
+        card.innerHTML = `
+          <span class="treatment-icon">${t.icon}</span>
+          <span class="treatment-name">${t.name}</span>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function toggleTreatment(id) {
+      const card = document.getElementById(`treatment-${id}`);
+      if (selectedTreatments.includes(id)) {
+        selectedTreatments = selectedTreatments.filter(item => item !== id);
+        card.classList.remove("selected");
+      } else {
+        selectedTreatments.push(id);
+        card.classList.add("selected");
+      }
+    }
+
+    function showScreen(screenId) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      const target = document.getElementById(screenId);
+      if (target) {
+        target.classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    function proceedToRating() {
+      if (selectedTreatments.length === 0) {
+        // Fallback default if patient tapped without selecting
+        selectedTreatments = ["consultation"];
+      }
+      showScreen("screen-rating");
+      updatePrompts();
+    }
+
+    function setRating(stars) {
+      selectedRating = stars;
+      const starButtons = document.querySelectorAll(".star-btn");
+      starButtons.forEach((btn, index) => {
+        if (index < stars) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+
+      document.getElementById("rating-label").innerText = RATING_TEXTS[stars] || "";
+      updatePrompts();
+    }
+
+    function updatePrompts() {
+      const promptsBox = document.getElementById("prompts-list");
+      if (selectedRating === 0) {
+        promptsBox.innerHTML = `
+          <div class="prompt-chip">Select your star rating above to see tailored review suggestions.</div>
+        `;
+        return;
+      }
+
+      // Gather prompts across selected treatments
+      let promptList = [];
+      selectedTreatments.forEach(tId => {
+        if (TREATMENT_PROMPTS[tId]) {
+          promptList.push(...TREATMENT_PROMPTS[tId]);
+        }
+      });
+
+      // Default fallback
+      if (promptList.length === 0) {
+        promptList = TREATMENT_PROMPTS.consultation;
+      }
+
+      // Deduplicate and pick 4-5 focused prompts
+      const uniquePrompts = Array.from(new Set(promptList)).slice(0, 4);
+
+      promptsBox.innerHTML = uniquePrompts.map(p => `
+        <div class="prompt-chip">• ${p}</div>
+      `).join("");
+    }
+
+    function proceedToGoogleStep() {
+      if (selectedRating === 0) {
+        alert("Please select a star rating first.");
+        return;
+      }
+      showScreen("screen-google");
+    }
+
+    function restartFlow() {
+      selectedTreatments = [];
+      selectedRating = 0;
+      document.querySelectorAll(".treatment-card").forEach(c => c.classList.remove("selected"));
+      document.querySelectorAll(".star-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById("rating-label").innerText = "Tap a star to rate";
+      showScreen("screen-welcome");
+    }
+
+    /* =====================================================================
+       5. QR GENERATION FOR PRINTABLE STAND
+       ===================================================================== */
+    function generatePrintableQR() {
+      const qrContainer = document.getElementById("printable-qrcode");
+      if (!qrContainer) return;
+      
+      qrContainer.innerHTML = "";
+      
+      // Auto-detect the exact live deployed webpage URL
+      const currentUrl = window.location.href.split("#")[0];
+
+      new QRCode(qrContainer, {
+        text: currentUrl,
+        width: 190,
+        height: 190,
+        colorDark: "#3E3028",
+        colorLight: "#FFFFFF",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+  </script>
+</body>
+</html>
