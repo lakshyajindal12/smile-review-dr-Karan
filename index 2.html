@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f2ede4">
+<title>Dr. Karan Dental Clinic | Share Your Experience</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--cream:#f2ede4;--beige:#e6dccb;--brown:#6b4f3f;--dark:#3e3028;--muted:#786b60;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--dark);font-family:Arial,Helvetica,sans-serif}
+.wrap{max-width:680px;margin:0 auto;padding:24px 16px 48px}
+.card{background:var(--white);border:1px solid #e9e0d4;border-radius:22px;padding:24px;margin:14px 0;box-shadow:0 8px 28px #3e30280d}
+.brand{text-align:center;padding:24px 14px 8px}.mark{width:54px;height:54px;border-radius:50%;background:var(--beige);display:grid;place-items:center;margin:0 auto 12px;font-size:25px}
+h1{font-family:Georgia,serif;font-weight:500;font-size:29px;margin:0 0 7px}h2{font-size:18px;margin:0 0 14px}p{line-height:1.55;color:var(--muted);margin:7px 0}
+.small{font-size:12px}.step{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--brown);font-weight:700;margin-bottom:10px}
+label{display:block;font-weight:600;font-size:14px;margin:15px 0 8px}
+select,textarea,input[type=text]{width:100%;border:1px solid #d9cdbd;border-radius:12px;padding:13px;background:#fff;font:inherit;color:var(--dark)}
+textarea{min-height:90px;resize:vertical}
+.stars{display:flex;gap:8px;flex-wrap:wrap}.star{border:1px solid #d9cdbd;background:#fff;border-radius:12px;padding:9px 13px;font-size:25px;cursor:pointer;color:#c8bba9}.star.active{color:#b27b22;background:#fff8e9;border-color:#d5b36d}
+.tags{display:flex;flex-wrap:wrap;gap:8px}.tag{border:1px solid #d9cdbd;border-radius:14px;padding:10px 12px;background:#fff;color:var(--dark);cursor:pointer;font-size:13px;line-height:1.4;text-align:left;max-width:100%}.tag.active{background:var(--beige);border-color:var(--brown)}
+button{border:0;border-radius:13px;padding:14px 18px;font-weight:700;font-size:15px;cursor:pointer}
+.primary{background:var(--brown);color:#fff;width:100%;margin-top:16px}.secondary{background:var(--beige);color:var(--dark)}.draft{border:1px solid #e2d7c9;border-radius:15px;padding:14px;margin:12px 0;background:#fffdf9}.draft textarea{min-height:100px;background:#fff}
+.drafthead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}.drafthead strong{font-size:14px}.copy{padding:9px 12px;font-size:12px;background:var(--beige);white-space:nowrap}
+.notice{background:#f8f3eb;border-left:3px solid var(--brown);padding:12px;border-radius:8px;font-size:12px;color:var(--muted);line-height:1.5}
+.hidden{display:none}.center{text-align:center}.link{color:var(--brown);font-weight:700}
+#qr{display:inline-block;background:white;padding:12px;border-radius:12px;margin:12px auto}
+footer{text-align:center;font-size:12px;color:var(--muted);padding:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="brand">
+    <div class="mark">✦</div>
+    <h1>Dr. Karan Dental Clinic</h1>
+    <p>Thank you for visiting us in Samana.</p>
+  </header>
+
+  <section class="card">
+    <div class="step">Your experience · 01</div>
+    <h2>Tell us about your visit</h2>
+    <p>Your feedback is optional. Choose only details that genuinely reflect your experience.</p>
+    <label for="treatment">What treatment did you receive?</label>
+    <select id="treatment">
+      <option value="">Select treatment</option>
+      <option>Consultation</option><option>Scaling &amp; Polishing</option><option>Deep Cleaning</option>
+      <option>Composite Filling</option><option>Root Canal Treatment (RCT)</option><option>Tooth Extraction</option>
+      <option>Surgical Extraction</option><option>Dental Implant</option><option>Zirconia Crown</option>
+      <option>PFM Crown</option><option>Dental Bridge</option><option>Veneers</option>
+      <option>Teeth Whitening</option><option>Orthodontic Treatment</option><option>Dentures</option>
+      <option>Other</option>
+    </select>
+    <label>How would you rate your visit?</label>
+    <div class="stars" id="stars" role="group" aria-label="Rating">
+      <button class="star" data-value="1" aria-label="1 star">★</button>
+      <button class="star" data-value="2" aria-label="2 stars">★</button>
+      <button class="star" data-value="3" aria-label="3 stars">★</button>
+      <button class="star" data-value="4" aria-label="4 stars">★</button>
+      <button class="star" data-value="5" aria-label="5 stars">★</button>
+    </div>
+    <label>Which of these describe your experience? <span class="small">(Choose any that apply)</span></label>
+    <div class="notice" style="margin:10px 0">Select all the points that genuinely match your experience. The options below change according to the treatment you selected.</div>
+    <div id="factGroups"></div>
+    <label for="ownwords">Anything else you'd like to mention? <span class="small">(optional)</span></label>
+    <textarea id="ownwords" placeholder="Write in your own words. Please avoid sharing private medical details."></textarea>
+    <button class="primary" id="generate">Create review wording options</button>
+    <p class="small">Your selections are used only in this browser to prepare editable wording. They are not sent to the clinic by this page.</p>
+  </section>
+
+  <section class="card hidden" id="results">
+    <div class="step">Your words · 02</div>
+    <h2>Four ways to describe your experience</h2>
+    <p>Each option uses a different flow and tone. The wording is based only on the treatment, details and comments you supplied. Please edit anything that does not sound like you or accurately describe your visit.</p>
+    <div id="drafts"></div>
+    <div class="notice">Your rating is your choice. The same Google review destination is available to every patient, whatever rating they select. Nothing is posted automatically.</div>
+    <button class="primary" id="openGoogle">Copy selected review &amp; open Google Reviews</button>
+    <p class="small center" id="status" aria-live="polite"></p>
+  </section>
+
+  <section class="card center">
+    <div class="step">Clinic QR · For display</div>
+    <h2>Generate your clinic QR code</h2>
+    <p>After publishing this page, open it using its public web address. The QR code below will point to that page.</p>
+    <div id="qr"></div>
+    <div><button class="secondary" id="downloadQR">Download QR code</button></div>
+    <p class="small">If the QR does not appear, check your internet connection (QR library is loaded from a public CDN).</p>
+  </section>
+  <footer>Dr. Karan Dental Clinic · Samana, Punjab</footer>
+</div>
+<script>
+const GOOGLE_REVIEW_URL = "https://g.page/r/CfukcTLf9jFxEBM/review";
+let rating = 0, selectedFacts = [], chosenDraft = 0;
+const stars = [...document.querySelectorAll(".star")];
+stars.forEach(btn => btn.addEventListener("click", () => {
+  rating = Number(btn.dataset.value);
+  stars.forEach(s => s.classList.toggle("active", Number(s.dataset.value) <= rating));
+}));
+
+const generalFacts = [
+  ["Doctor's nature & communication", [
+    "Dr. Karan was friendly, polite and approachable.",
+    "Dr. Karan listened patiently to my concerns.",
+    "Dr. Karan explained things in a way I could understand.",
+    "Dr. Karan explained the treatment plan and available options clearly.",
+    "Dr. Karan answered my questions and made me feel heard.",
+    "Dr. Karan was professional and reassuring.",
+    "I felt comfortable discussing my dental concerns with Dr. Karan."
+  ]],
+  ["Clinic & team", [
+    "The clinic was clean and comfortable.",
+    "The staff were courteous and welcoming.",
+    "The appointment process was smooth.",
+    "The team helped make the visit comfortable.",
+    "The clinic was well organised."
+  ]]
+];
+
+const treatmentFacts = {
+  "Consultation": [
+    "Dr. Karan listened carefully to my dental concerns.",
+    "He explained the findings and treatment options clearly.",
+    "He explained the pros and cons of the suggested treatment.",
+    "I had enough time to ask questions during the consultation."
+  ],
+  "Scaling & Polishing": [
+    "The scaling and polishing procedure was explained before it began.",
+    "The dentist checked on my comfort during the cleaning.",
+    "The cleaning was carried out carefully.",
+    "I was given guidance on maintaining oral hygiene after the cleaning."
+  ],
+  "Deep Cleaning": [
+    "The reason for deep cleaning was explained to me.",
+    "The procedure and the steps involved were explained clearly.",
+    "The dentist checked my comfort during the procedure.",
+    "I received instructions about aftercare and gum care."
+  ],
+  "Composite Filling": [
+    "The reason for the filling and the procedure were explained clearly.",
+    "The dentist explained the steps before starting the filling.",
+    "The dentist checked my bite after the filling.",
+    "The tooth-coloured filling was shaped and finished carefully."
+  ],
+  "Root Canal Treatment (RCT)": [
+    "Dr. Karan explained why I needed an RCT and how the procedure works.",
+    "The different stages of the root canal treatment were explained clearly.",
+    "I was kept informed about what was happening during the procedure.",
+    "The dentist checked on my comfort during the RCT.",
+    "The expected number of visits and treatment plan were explained to me.",
+    "I was given instructions about what to expect after the appointment."
+  ],
+  "Tooth Extraction": [
+    "The reason for the extraction and the procedure were explained beforehand.",
+    "The dentist explained what to expect during the extraction.",
+    "The dentist checked on my comfort during the procedure.",
+    "Aftercare instructions were explained clearly."
+  ],
+  "Surgical Extraction": [
+    "The surgical extraction procedure and its steps were explained to me.",
+    "The dentist discussed what to expect during recovery.",
+    "I was kept informed during the procedure.",
+    "The post-operative instructions were explained clearly."
+  ],
+  "Dental Implant": [
+    "The implant treatment plan and stages were explained clearly.",
+    "Dr. Karan explained the implant procedure and the expected timeline.",
+    "The available options and costs were discussed with me.",
+    "I was given information about healing and follow-up visits.",
+    "My questions about the implant procedure were answered patiently."
+  ],
+  "Zirconia Crown": [
+    "The crown treatment process was explained clearly.",
+    "The reason for choosing a zirconia crown was explained to me.",
+    "The steps involved in preparing and fitting the crown were explained.",
+    "The fit and bite of the crown were checked with me."
+  ],
+  "PFM Crown": [
+    "The crown treatment process was explained clearly.",
+    "The features of a PFM crown were explained to me.",
+    "The steps involved in preparing and fitting the crown were explained.",
+    "The fit and bite of the crown were checked with me."
+  ],
+  "Dental Bridge": [
+    "The bridge treatment plan and available options were explained.",
+    "The steps involved in preparing and fitting the bridge were explained.",
+    "The dentist discussed how to care for the bridge.",
+    "The fit and bite were checked during the appointment."
+  ],
+  "Veneers": [
+    "The veneer options and treatment plan were explained clearly.",
+    "The dentist discussed the expected appearance and limitations of veneers.",
+    "The steps involved in the veneer procedure were explained.",
+    "My questions about the veneer treatment were answered."
+  ],
+  "Teeth Whitening": [
+    "The whitening procedure and available options were explained.",
+    "The dentist explained what results I could reasonably expect.",
+    "The process and any precautions were explained before treatment.",
+    "I received advice about caring for my teeth after whitening."
+  ],
+  "Orthodontic Treatment": [
+    "The orthodontic treatment plan was explained in detail.",
+    "The expected duration and stages of treatment were discussed.",
+    "The available orthodontic options were explained clearly.",
+    "I was given guidance about follow-up visits and oral hygiene."
+  ],
+  "Dentures": [
+    "The denture options and treatment process were explained clearly.",
+    "The steps involved in making and fitting the denture were explained.",
+    "The fit and comfort of the denture were discussed.",
+    "I was given guidance on cleaning and caring for the denture."
+  ],
+  "Other": [
+    "The treatment and available options were explained clearly.",
+    "The dentist explained the steps involved before starting.",
+    "My questions were answered patiently."
+  ]
+};
+
+function renderFactChoices() {
+  const treatment = document.getElementById("treatment").value;
+  const root = document.getElementById("factGroups");
+  root.innerHTML = "";
+  selectedFacts = [];
+  const groups = [...generalFacts, ["About your " + (treatment || "dental") + " treatment", treatmentFacts[treatment] || []]];
+  groups.forEach(([heading, facts]) => {
+    if (!facts.length) return;
+    const section = document.createElement("div");
+    section.style.margin = "14px 0";
+    const title = document.createElement("div");
+    title.style.cssText = "font-weight:700;font-size:14px;margin:0 0 9px;color:var(--dark)";
+    title.textContent = heading;
+    const tags = document.createElement("div");
+    tags.className = "tags";
+    facts.forEach(fact => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "tag";
+      button.textContent = fact;
+      button.addEventListener("click", () => {
+        if (selectedFacts.includes(fact)) {
+          selectedFacts = selectedFacts.filter(x => x !== fact);
+          button.classList.remove("active");
+        } else {
+          selectedFacts.push(fact);
+          button.classList.add("active");
+        }
+      });
+      tags.appendChild(button);
+    });
+    section.append(title, tags);
+    root.appendChild(section);
+  });
+}
+document.getElementById("treatment").addEventListener("change", renderFactChoices);
+renderFactChoices();
+function makeDrafts(treatment, facts, own) {
+  const ownText = own.trim().replace(/\s+/g, " ").replace(/[.?!]+$/, "");
+  const treatmentText = treatment.toLowerCase();
+  const intro = `I visited Dr. Karan Dental Clinic for ${treatmentText}.`;
+  const detail = facts.map(x => x.endsWith(".") ? x : x + ".");
+  const personal = ownText ? [`In my own words, ${ownText.charAt(0).toLowerCase()}${ownText.slice(1)}.`] : [];
+  const join = parts => parts.join(" ").replace(/\s+/g, " ").trim();
+  const varied = (offset) => detail.map((sentence, i) => {
+    const clean = sentence.replace(/[.]$/, "");
+    if ((i + offset) % 3 === 0) return clean + ".";
+    if ((i + offset) % 3 === 1) return clean.charAt(0).toLowerCase() + clean.slice(1) + ".";
+    return clean + ".";
+  });
+  return [
+    join([intro, ...detail.slice(0, 3), ...personal]),
+    join([`I had ${treatmentText} at Dr. Karan Dental Clinic.`, ...detail.slice(0, 5), ...personal]),
+    join([`I would like to share my experience at Dr. Karan Dental Clinic after my ${treatmentText}.`, ...varied(1), ...personal]),
+    join([`My visit to Dr. Karan Dental Clinic was for ${treatmentText}.`, ...detail.slice().reverse(), ...personal])
+  ];
+}
+
+document.getElementById("generate").addEventListener("click",()=>{
+  const treatment=document.getElementById("treatment").value;
+  const own=document.getElementById("ownwords").value;
+  if(!treatment){alert("Please select the treatment you received.");return}
+  if(!rating){alert("Please select your star rating.");return}
+  if(!selectedFacts.length && !own.trim()){alert("Please select at least one detail that was true about your visit, or add a short note in your own words. This helps ensure the draft reflects your real experience.");return}
+  const drafts=makeDrafts(treatment,selectedFacts,own);
+  const box=document.getElementById("drafts");box.innerHTML="";
+  drafts.forEach((d,i)=>{
+    const el=document.createElement("div");el.className="draft";
+    const head=document.createElement("div");head.className="drafthead";
+    const title=document.createElement("strong");title.textContent=["Simple & direct","Warm & conversational","Experience-focused","Personal & detailed"][i] || `Option ${i+1}`;
+    const radio=document.createElement("input");radio.type="radio";radio.name="draftChoice";radio.value=i;radio.checked=i===0;
+    radio.addEventListener("change",()=>chosenDraft=i);
+    head.append(title,radio);
+    const ta=document.createElement("textarea");ta.value=d;ta.setAttribute("aria-label",`Review option ${i+1}`);
+    ta.addEventListener("input",()=>{drafts[i]=ta.value});
+    el.append(head,ta);box.append(el);
+  });
+  chosenDraft=0;document.getElementById("results").classList.remove("hidden");
+  document.getElementById("results").scrollIntoView({behavior:"smooth"});
+});
+document.getElementById("openGoogle").addEventListener("click",async()=>{
+  const radios=[...document.querySelectorAll('input[name="draftChoice"]')];
+  const selected=radios.find(r=>r.checked);if(selected)chosenDraft=Number(selected.value);
+  const text=document.querySelectorAll("#drafts textarea")[chosenDraft]?.value || "";
+  if(!text.trim()){alert("Please choose or write a review first.");return}
+  let copied=false;
+  try{await navigator.clipboard.writeText(text);copied=true}catch(e){
+    const temp=document.createElement("textarea");temp.value=text;document.body.appendChild(temp);temp.select();
+    try{copied=document.execCommand("copy")}catch(err){}temp.remove();
+  }
+  document.getElementById("status").textContent=copied
+    ?"Review text copied. Google Reviews is opening—paste your text, review it, and publish if you wish."
+    :"Google Reviews is opening. Please copy your selected text manually before pasting.";
+  window.open(GOOGLE_REVIEW_URL,"_blank","noopener");
+});
+function renderQR(){
+ const node=document.getElementById("qr");node.innerHTML="";
+ if(typeof QRCode==="undefined"){node.textContent="QR code library could not load.";return}
+ new QRCode(node,{text:location.href.split("#")[0],width:190,height:190,colorDark:"#3e3028",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
+}
+document.getElementById("downloadQR").addEventListener("click",()=>{
+ const img=document.querySelector("#qr img"),canvas=document.querySelector("#qr canvas");
+ const url=img?.src || canvas?.toDataURL("image/png");
+ if(!url){alert("QR code is not ready yet.");return}
+ const a=document.createElement("a");a.href=url;a.download="Dr-Karan-Dental-Clinic-Review-QR.png";a.click();
+});
+renderQR();
+</script>
+</body></html>
