@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f2ede4">
+<title>Dr. Karan Dental Clinic | Share Your Experience</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--cream:#f2ede4;--beige:#e6dccb;--brown:#6b4f3f;--dark:#3e3028;--muted:#786b60;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--dark);font-family:Arial,Helvetica,sans-serif}
+.wrap{max-width:680px;margin:0 auto;padding:24px 16px 48px}
+.card{background:var(--white);border:1px solid #e9e0d4;border-radius:22px;padding:24px;margin:14px 0;box-shadow:0 8px 28px #3e30280d}
+.brand{text-align:center;padding:24px 14px 8px}.mark{width:54px;height:54px;border-radius:50%;background:var(--beige);display:grid;place-items:center;margin:0 auto 12px;font-size:25px}
+h1{font-family:Georgia,serif;font-weight:500;font-size:29px;margin:0 0 7px}h2{font-size:18px;margin:0 0 14px}p{line-height:1.55;color:var(--muted);margin:7px 0}
+.small{font-size:12px}.step{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--brown);font-weight:700;margin-bottom:10px}
+label{display:block;font-weight:600;font-size:14px;margin:15px 0 8px}
+select,textarea,input[type=text]{width:100%;border:1px solid #d9cdbd;border-radius:12px;padding:13px;background:#fff;font:inherit;color:var(--dark)}
+textarea{min-height:90px;resize:vertical}
+.stars{display:flex;gap:8px;flex-wrap:wrap}.star{border:1px solid #d9cdbd;background:#fff;border-radius:12px;padding:9px 13px;font-size:25px;cursor:pointer;color:#c8bba9}.star.active{color:#b27b22;background:#fff8e9;border-color:#d5b36d}
+.tags{display:flex;flex-wrap:wrap;gap:8px}.tag{border:1px solid #d9cdbd;border-radius:14px;padding:10px 12px;background:#fff;color:var(--dark);cursor:pointer;font-size:13px;line-height:1.4;text-align:left;max-width:100%}.tag.active{background:var(--beige);border-color:var(--brown)}
+button{border:0;border-radius:13px;padding:14px 18px;font-weight:700;font-size:15px;cursor:pointer}
+.primary{background:var(--brown);color:#fff;width:100%;margin-top:16px}.secondary{background:var(--beige);color:var(--dark)}.draft{border:1px solid #e2d7c9;border-radius:15px;padding:14px;margin:12px 0;background:#fffdf9}.draft textarea{min-height:100px;background:#fff}
+.drafthead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}.drafthead strong{font-size:14px}.copy{padding:9px 12px;font-size:12px;background:var(--beige);white-space:nowrap}
+.notice{background:#f8f3eb;border-left:3px solid var(--brown);padding:12px;border-radius:8px;font-size:12px;color:var(--muted);line-height:1.5}
+.hidden{display:none}.center{text-align:center}.link{color:var(--brown);font-weight:700}
+#qr{display:inline-block;background:white;padding:12px;border-radius:12px;margin:12px auto}
+footer{text-align:center;font-size:12px;color:var(--muted);padding:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="brand">
+    <div class="mark">✦</div>
+    <h1>Dr. Karan Dental Clinic</h1>
+    <p>Thank you for visiting us in Samana.</p>
+  </header>
+
+  <section class="card">
+    <div class="language-row" style="display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-bottom:14px">
+      <label for="language" style="margin:0;font-size:13px">Language / ਭਾਸ਼ਾ</label>
+      <select id="language" style="width:auto;min-width:145px;padding:9px 12px">
+        <option value="en">English</option>
+        <option value="pa">ਪੰਜਾਬੀ</option>
+      </select>
+    </div>
+    <div class="step">Your experience · 01</div>
+    <h2 id="formTitle">Tell us about your visit</h2>
+    <p>Your feedback is optional. Choose only details that genuinely reflect your experience.</p>
+    <label for="treatment">What treatment did you receive?</label>
+    <select id="treatment">
+      <option value="">Select treatment</option>
+      <option>Consultation</option><option>Scaling &amp; Polishing</option><option>Deep Cleaning</option>
+      <option>Composite Filling</option><option>Root Canal Treatment (RCT)</option><option>Tooth Extraction</option>
+      <option>Surgical Extraction</option><option>Dental Implant</option><option>Zirconia Crown</option>
+      <option>PFM Crown</option><option>Dental Bridge</option><option>Veneers</option>
+      <option>Teeth Whitening</option><option>Orthodontic Treatment</option><option>Dentures</option>
+      <option>Other</option>
+    </select>
+    <label>How would you rate your visit?</label>
+    <div class="stars" id="stars" role="group" aria-label="Rating">
+      <button class="star" data-value="1" aria-label="1 star">★</button>
+      <button class="star" data-value="2" aria-label="2 stars">★</button>
+      <button class="star" data-value="3" aria-label="3 stars">★</button>
+      <button class="star" data-value="4" aria-label="4 stars">★</button>
+      <button class="star" data-value="5" aria-label="5 stars">★</button>
+    </div>
+    <label>Which of these describe your experience? <span class="small">(Choose any that apply)</span></label>
+    <div class="notice" style="margin:10px 0">Select all the points that genuinely match your experience. The options below change according to the treatment you selected.</div>
+    <div id="factGroups"></div>
+    <label for="ownwords">Anything else you'd like to mention? <span class="small">(optional)</span></label>
+    <textarea id="ownwords" placeholder="Write in your own words. Please avoid sharing private medical details."></textarea>
+    <button class="primary" id="generate">Create review wording options</button>
+    <p class="small">Your selections are used only in this browser to prepare editable wording. They are not sent to the clinic by this page.</p>
+  </section>
+
+  <section class="card hidden" id="results">
+    <div class="step">Your words · 02</div>
+    <h2>Four ways to describe your experience</h2>
+    <p>These are starting points, not ready-made testimonials. They use only the details you selected or wrote, in a more conversational style. Choose the one that sounds most like you and edit it in your own words.</p>
+    <div id="drafts"></div>
+    <div class="notice">Your rating is your choice. The same Google review destination is available to every patient, whatever rating they select. Nothing is posted automatically.</div>
+    <button class="primary" id="openGoogle">Copy selected review &amp; open Google Reviews</button>
+    <p class="small center" id="status" aria-live="polite"></p>
+  </section>
+
+  <section class="card center hidden" id="adminQR">
+    <div class="step">Admin only · Clinic setup</div>
+    <h2>Your clinic QR code</h2>
+    <p>This panel is hidden from patients. Download this QR and print it for your reception desk. Scanning it opens the patient review page.</p>
+    <div id="qr"></div>
+    <div><button class="secondary" id="downloadQR">Download clinic QR code</button></div>
+    <p class="small">The QR points to the normal patient page, without the admin parameter.</p>
+  </section>
+  <footer>Dr. Karan Dental Clinic · Samana, Punjab</footer>
+</div>
+<script>
+const GOOGLE_REVIEW_URL = "https://g.page/r/CfukcTLf9jFxEBM/review";
+let rating = 0, selectedFacts = [], chosenDraft = 0;
+const stars = [...document.querySelectorAll(".star")];
+stars.forEach(btn => btn.addEventListener("click", () => {
+  rating = Number(btn.dataset.value);
+  stars.forEach(s => s.classList.toggle("active", Number(s.dataset.value) <= rating));
+}));
+
+const generalFacts = [
+  ["Doctor's nature & communication", [
+    "Dr. Karan was friendly, polite and approachable.",
+    "Dr. Karan listened patiently to my concerns.",
+    "Dr. Karan explained things in a way I could understand.",
+    "Dr. Karan explained the treatment plan and available options clearly.",
+    "Dr. Karan answered my questions and made me feel heard.",
+    "Dr. Karan was professional and reassuring.",
+    "I felt comfortable discussing my dental concerns with Dr. Karan."
+  ]],
+  ["Clinic & team", [
+    "The clinic was clean and comfortable.",
+    "The staff were courteous and welcoming.",
+    "The appointment process was smooth.",
+    "The team helped make the visit comfortable.",
+    "The clinic was well organised."
+  ]]
+];
+
+const treatmentFacts = {
+  "Consultation": [
+    "Dr. Karan listened carefully to my dental concerns.",
+    "He explained the findings and treatment options clearly.",
+    "He explained the pros and cons of the suggested treatment.",
+    "I had enough time to ask questions during the consultation."
+  ],
+  "Scaling & Polishing": [
+    "The scaling and polishing procedure was explained before it began.",
+    "The dentist checked on my comfort during the cleaning.",
+    "The cleaning was carried out carefully.",
+    "I was given guidance on maintaining oral hygiene after the cleaning."
+  ],
+  "Deep Cleaning": [
+    "The reason for deep cleaning was explained to me.",
+    "The procedure and the steps involved were explained clearly.",
+    "The dentist checked my comfort during the procedure.",
+    "I received instructions about aftercare and gum care."
+  ],
+  "Composite Filling": [
+    "The reason for the filling and the procedure were explained clearly.",
+    "The dentist explained the steps before starting the filling.",
+    "The dentist checked my bite after the filling.",
+    "The tooth-coloured filling was shaped and finished carefully."
+  ],
+  "Root Canal Treatment (RCT)": [
+    "Dr. Karan explained why I needed an RCT and how the procedure works.",
+    "The different stages of the root canal treatment were explained clearly.",
+    "I was kept informed about what was happening during the procedure.",
+    "The dentist checked on my comfort during the RCT.",
+    "The expected number of visits and treatment plan were explained to me.",
+    "I was given instructions about what to expect after the appointment."
+  ],
+  "Tooth Extraction": [
+    "The reason for the extraction and the procedure were explained beforehand.",
+    "The dentist explained what to expect during the extraction.",
+    "The dentist checked on my comfort during the procedure.",
+    "Aftercare instructions were explained clearly."
+  ],
+  "Surgical Extraction": [
+    "The surgical extraction procedure and its steps were explained to me.",
+    "The dentist discussed what to expect during recovery.",
+    "I was kept informed during the procedure.",
+    "The post-operative instructions were explained clearly."
+  ],
+  "Dental Implant": [
+    "The implant treatment plan and stages were explained clearly.",
+    "Dr. Karan explained the implant procedure and the expected timeline.",
+    "The available options and costs were discussed with me.",
+    "I was given information about healing and follow-up visits.",
+    "My questions about the implant procedure were answered patiently."
+  ],
+  "Zirconia Crown": [
+    "The crown treatment process was explained clearly.",
+    "The reason for choosing a zirconia crown was explained to me.",
+    "The steps involved in preparing and fitting the crown were explained.",
+    "The fit and bite of the crown were checked with me."
+  ],
+  "PFM Crown": [
+    "The crown treatment process was explained clearly.",
+    "The features of a PFM crown were explained to me.",
+    "The steps involved in preparing and fitting the crown were explained.",
+    "The fit and bite of the crown were checked with me."
+  ],
+  "Dental Bridge": [
+    "The bridge treatment plan and available options were explained.",
+    "The steps involved in preparing and fitting the bridge were explained.",
+    "The dentist discussed how to care for the bridge.",
+    "The fit and bite were checked during the appointment."
+  ],
+  "Veneers": [
+    "The veneer options and treatment plan were explained clearly.",
+    "The dentist discussed the expected appearance and limitations of veneers.",
+    "The steps involved in the veneer procedure were explained.",
+    "My questions about the veneer treatment were answered."
+  ],
+  "Teeth Whitening": [
+    "The whitening procedure and available options were explained.",
+    "The dentist explained what results I could reasonably expect.",
+    "The process and any precautions were explained before treatment.",
+    "I received advice about caring for my teeth after whitening."
+  ],
+  "Orthodontic Treatment": [
+    "The orthodontic treatment plan was explained in detail.",
+    "The expected duration and stages of treatment were discussed.",
+    "The available orthodontic options were explained clearly.",
+    "I was given guidance about follow-up visits and oral hygiene."
+  ],
+  "Dentures": [
+    "The denture options and treatment process were explained clearly.",
+    "The steps involved in making and fitting the denture were explained.",
+    "The fit and comfort of the denture were discussed.",
+    "I was given guidance on cleaning and caring for the denture."
+  ],
+  "Other": [
+    "The treatment and available options were explained clearly.",
+    "The dentist explained the steps involved before starting.",
+    "My questions were answered patiently."
+  ]
+};
+
+function renderFactChoices() {
+  const treatment = document.getElementById("treatment").value;
+  const root = document.getElementById("factGroups");
+  root.innerHTML = "";
+  selectedFacts = [];
+  const groupHeadingsPa = ["ਡਾਕਟਰ ਦਾ ਸੁਭਾਅ ਅਤੇ ਗੱਲਬਾਤ", "ਕਲੀਨਿਕ ਅਤੇ ਸਟਾਫ਼", (punjabiTreatment[treatment] || "ਦੰਦਾਂ ਦੇ ਇਲਾਜ") + " ਬਾਰੇ"];
+  const groups = [...generalFacts, ["About your " + (treatment || "dental") + " treatment", treatmentFacts[treatment] || []]];
+  if (currentLanguage === "pa") groups.forEach((g, i) => g[0] = groupHeadingsPa[i]);
+  groups.forEach(([heading, facts]) => {
+    if (!facts.length) return;
+    const section = document.createElement("div");
+    section.style.margin = "14px 0";
+    const title = document.createElement("div");
+    title.style.cssText = "font-weight:700;font-size:14px;margin:0 0 9px;color:var(--dark)";
+    title.textContent = heading;
+    const tags = document.createElement("div");
+    tags.className = "tags";
+    facts.forEach(fact => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "tag";
+      button.textContent = currentLanguage === "pa" ? (punjabiFacts[fact] || fact) : fact;
+      button.addEventListener("click", () => {
+        if (selectedFacts.includes(fact)) {
+          selectedFacts = selectedFacts.filter(x => x !== fact);
+          button.classList.remove("active");
+        } else {
+          selectedFacts.push(fact);
+          button.classList.add("active");
+        }
+      });
+      tags.appendChild(button);
+    });
+    section.append(title, tags);
+    root.appendChild(section);
+  });
+}
+document.getElementById("treatment").addEventListener("change", renderFactChoices);
+renderFactChoices();
+
+let currentLanguage = "en";
+const punjabiFacts = {
+  "Dr. Karan was friendly, polite and approachable.": "ਡਾ. ਕਰਨ ਜੀ ਦਾ ਸੁਭਾਅ ਬਹੁਤ ਮਿਲਣਸਾਰ ਅਤੇ ਨਿਮਰ ਸੀ।",
+  "Dr. Karan listened patiently to my concerns.": "ਡਾ. ਕਰਨ ਜੀ ਨੇ ਮੇਰੀ ਗੱਲ ਧਿਆਨ ਨਾਲ ਸੁਣੀ।",
+  "Dr. Karan explained things in a way I could understand.": "ਡਾ. ਕਰਨ ਜੀ ਨੇ ਮੈਨੂੰ ਹਰ ਗੱਲ ਆਸਾਨ ਭਾਸ਼ਾ ਵਿੱਚ ਸਮਝਾਈ।",
+  "Dr. Karan explained the treatment plan and available options clearly.": "ਡਾ. ਕਰਨ ਜੀ ਨੇ ਇਲਾਜ ਦੀ ਯੋਜਨਾ ਅਤੇ ਹੋਰ ਵਿਕਲਪ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਏ।",
+  "Dr. Karan answered my questions and made me feel heard.": "ਡਾ. ਕਰਨ ਜੀ ਨੇ ਮੇਰੇ ਸਾਰੇ ਸਵਾਲਾਂ ਦੇ ਜਵਾਬ ਧੀਰਜ ਨਾਲ ਦਿੱਤੇ।",
+  "Dr. Karan was professional and reassuring.": "ਡਾ. ਕਰਨ ਜੀ ਦਾ ਤਰੀਕਾ ਬਹੁਤ ਪੇਸ਼ੇਵਰ ਅਤੇ ਭਰੋਸਾ ਦੇਣ ਵਾਲਾ ਸੀ।",
+  "I felt comfortable discussing my dental concerns with Dr. Karan.": "ਮੈਨੂੰ ਡਾ. ਕਰਨ ਜੀ ਨਾਲ ਆਪਣੀ ਦੰਦਾਂ ਦੀ ਸਮੱਸਿਆ ਬਾਰੇ ਗੱਲ ਕਰਕੇ ਚੰਗਾ ਮਹਿਸੂਸ ਹੋਇਆ।",
+  "The clinic was clean and comfortable.": "ਕਲੀਨਿਕ ਸਾਫ਼-ਸੁਥਰਾ ਅਤੇ ਆਰਾਮਦਾਇਕ ਸੀ।",
+  "The staff were courteous and welcoming.": "ਸਟਾਫ਼ ਦਾ ਵਰਤਾਅ ਬਹੁਤ ਵਧੀਆ ਅਤੇ ਸਹਿਯੋਗੀ ਸੀ।",
+  "The appointment process was smooth.": "ਅਪਾਇੰਟਮੈਂਟ ਦਾ ਸਾਰਾ ਪ੍ਰਬੰਧ ਵਧੀਆ ਸੀ।",
+  "The team helped make the visit comfortable.": "ਟੀਮ ਨੇ ਮੇਰੀ ਵਿਜ਼ਿਟ ਨੂੰ ਆਰਾਮਦਾਇਕ ਬਣਾਇਆ।",
+  "The clinic was well organised.": "ਕਲੀਨਿਕ ਦਾ ਪ੍ਰਬੰਧ ਬਹੁਤ ਵਧੀਆ ਸੀ।",
+  "The treatment and available options were explained clearly.": "ਮੈਨੂੰ ਇਲਾਜ ਅਤੇ ਉਪਲਬਧ ਵਿਕਲਪ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਏ ਗਏ।",
+  "The procedure and its steps were explained clearly.": "ਮੈਨੂੰ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਇਸ ਦੇ ਸਾਰੇ ਪੜਾਅ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਏ ਗਏ।",
+  "The dentist checked on my comfort during the procedure.": "ਇਲਾਜ ਦੌਰਾਨ ਮੇਰੇ ਆਰਾਮ ਦਾ ਧਿਆਨ ਰੱਖਿਆ ਗਿਆ।",
+  "The scaling and polishing procedure was explained before it began.": "ਸਕੇਲਿੰਗ ਅਤੇ ਪਾਲਿਸ਼ਿੰਗ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਮੈਨੂੰ ਇਸ ਬਾਰੇ ਸਮਝਾਇਆ ਗਿਆ।",
+  "The dentist checked on my comfort during the cleaning.": "ਸਫ਼ਾਈ ਦੌਰਾਨ ਮੇਰੇ ਆਰਾਮ ਦਾ ਧਿਆਨ ਰੱਖਿਆ ਗਿਆ।",
+  "The cleaning was carried out carefully.": "ਦੰਦਾਂ ਦੀ ਸਫ਼ਾਈ ਧਿਆਨ ਨਾਲ ਕੀਤੀ ਗਈ।",
+  "I was given guidance on maintaining oral hygiene after the cleaning.": "ਮੈਨੂੰ ਸਫ਼ਾਈ ਤੋਂ ਬਾਅਦ ਮੂੰਹ ਦੀ ਸਫ਼ਾਈ ਕਿਵੇਂ ਰੱਖਣੀ ਹੈ, ਇਸ ਬਾਰੇ ਦੱਸਿਆ ਗਿਆ।",
+  "The reason for deep cleaning was explained to me.": "ਮੈਨੂੰ ਡੀਪ ਕਲੀਨਿੰਗ ਦੀ ਲੋੜ ਬਾਰੇ ਸਮਝਾਇਆ ਗਿਆ।",
+  "The procedure and the steps involved were explained clearly.": "ਮੈਨੂੰ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਇਸ ਦੇ ਸਾਰੇ ਪੜਾਅ ਸਪਸ਼ਟ ਤਰੀਕੇ ਨਾਲ ਸਮਝਾਏ ਗਏ।",
+  "The dentist checked my comfort during the procedure.": "ਪ੍ਰਕਿਰਿਆ ਦੌਰਾਨ ਮੇਰੇ ਆਰਾਮ ਦਾ ਧਿਆਨ ਰੱਖਿਆ ਗਿਆ।",
+  "I received instructions about aftercare and gum care.": "ਮੈਨੂੰ ਇਲਾਜ ਤੋਂ ਬਾਅਦ ਦੀ ਦੇਖਭਾਲ ਅਤੇ ਮਸੂੜਿਆਂ ਦੀ ਸੰਭਾਲ ਬਾਰੇ ਦੱਸਿਆ ਗਿਆ।",
+  "The reason for the filling and the procedure were explained clearly.": "ਮੈਨੂੰ ਫਿਲਿੰਗ ਦੀ ਲੋੜ ਅਤੇ ਇਸ ਦੀ ਪ੍ਰਕਿਰਿਆ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਈ ਗਈ।",
+  "The dentist explained the steps before starting the filling.": "ਫਿਲਿੰਗ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਇਸ ਦੇ ਪੜਾਅ ਸਮਝਾਏ ਗਏ।",
+  "The dentist checked my bite after the filling.": "ਫਿਲਿੰਗ ਤੋਂ ਬਾਅਦ ਮੇਰਾ ਬਾਈਟ ਚੈੱਕ ਕੀਤਾ ਗਿਆ।",
+  "The tooth-coloured filling was shaped and finished carefully.": "ਦੰਦਾਂ ਦੇ ਰੰਗ ਵਾਲੀ ਫਿਲਿੰਗ ਨੂੰ ਧਿਆਨ ਨਾਲ ਆਕਾਰ ਦਿੱਤਾ ਗਿਆ।",
+  "The reason for the extraction and the procedure were explained beforehand.": "ਦੰਦ ਕੱਢਣ ਦੀ ਲੋੜ ਅਤੇ ਪ੍ਰਕਿਰਿਆ ਬਾਰੇ ਪਹਿਲਾਂ ਹੀ ਸਮਝਾਇਆ ਗਿਆ।",
+  "The dentist explained what to expect during the extraction.": "ਦੰਦ ਕੱਢਣ ਦੌਰਾਨ ਕੀ ਹੋਵੇਗਾ, ਇਹ ਮੈਨੂੰ ਸਮਝਾਇਆ ਗਿਆ।",
+  "The dentist checked on my comfort during the procedure.": "ਪ੍ਰਕਿਰਿਆ ਦੌਰਾਨ ਮੇਰੇ ਆਰਾਮ ਦਾ ਧਿਆਨ ਰੱਖਿਆ ਗਿਆ।",
+  "Aftercare instructions were explained clearly.": "ਇਲਾਜ ਤੋਂ ਬਾਅਦ ਦੀ ਦੇਖਭਾਲ ਬਾਰੇ ਸਪਸ਼ਟ ਹਦਾਇਤਾਂ ਦਿੱਤੀਆਂ ਗਈਆਂ।",
+  "The surgical extraction procedure and its steps were explained to me.": "ਸਰਜੀਕਲ ਤਰੀਕੇ ਨਾਲ ਦੰਦ ਕੱਢਣ ਦੀ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਇਸ ਦੇ ਪੜਾਅ ਮੈਨੂੰ ਸਮਝਾਏ ਗਏ।",
+  "The dentist discussed what to expect during recovery.": "ਮੈਨੂੰ ਠੀਕ ਹੋਣ ਦੇ ਸਮੇਂ ਦੌਰਾਨ ਕੀ ਉਮੀਦ ਰੱਖਣੀ ਹੈ, ਇਸ ਬਾਰੇ ਦੱਸਿਆ ਗਿਆ।",
+  "I was kept informed during the procedure.": "ਪ੍ਰਕਿਰਿਆ ਦੌਰਾਨ ਮੈਨੂੰ ਹਰ ਗੱਲ ਬਾਰੇ ਦੱਸਿਆ ਜਾਂਦਾ ਰਿਹਾ।",
+  "The post-operative instructions were explained clearly.": "ਪ੍ਰਕਿਰਿਆ ਤੋਂ ਬਾਅਦ ਦੀਆਂ ਹਦਾਇਤਾਂ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਈਆਂ ਗਈਆਂ।",
+  "The implant treatment plan and stages were explained clearly.": "ਇੰਪਲਾਂਟ ਇਲਾਜ ਦੀ ਯੋਜਨਾ ਅਤੇ ਪੜਾਅ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਏ ਗਏ।",
+  "Dr. Karan explained the implant procedure and the expected timeline.": "ਡਾ. ਕਰਨ ਜੀ ਨੇ ਇੰਪਲਾਂਟ ਦੀ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਲੱਗਣ ਵਾਲੇ ਸਮੇਂ ਬਾਰੇ ਸਮਝਾਇਆ।",
+  "The available options and costs were discussed with me.": "ਮੇਰੇ ਨਾਲ ਉਪਲਬਧ ਵਿਕਲਪਾਂ ਅਤੇ ਖਰਚੇ ਬਾਰੇ ਗੱਲ ਕੀਤੀ ਗਈ।",
+  "I was given information about healing and follow-up visits.": "ਮੈਨੂੰ ਠੀਕ ਹੋਣ ਦੇ ਸਮੇਂ ਅਤੇ ਫਾਲੋ-ਅੱਪ ਵਿਜ਼ਿਟਾਂ ਬਾਰੇ ਜਾਣਕਾਰੀ ਦਿੱਤੀ ਗਈ।",
+  "My questions about the implant procedure were answered patiently.": "ਇੰਪਲਾਂਟ ਦੀ ਪ੍ਰਕਿਰਿਆ ਬਾਰੇ ਮੇਰੇ ਸਵਾਲਾਂ ਦੇ ਜਵਾਬ ਧੀਰਜ ਨਾਲ ਦਿੱਤੇ ਗਏ।",
+  "The crown treatment process was explained clearly.": "ਕ੍ਰਾਊਨ ਲਗਾਉਣ ਦੀ ਪ੍ਰਕਿਰਿਆ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਈ ਗਈ।",
+  "The reason for choosing a zirconia crown was explained to me.": "ਮੈਨੂੰ ਜ਼ਿਰਕੋਨੀਆ ਕ੍ਰਾਊਨ ਚੁਣਨ ਦਾ ਕਾਰਨ ਸਮਝਾਇਆ ਗਿਆ।",
+  "The features of a PFM crown were explained to me.": "ਮੈਨੂੰ PFM ਕ੍ਰਾਊਨ ਦੀਆਂ ਖਾਸੀਅਤਾਂ ਬਾਰੇ ਸਮਝਾਇਆ ਗਿਆ।",
+  "The steps involved in preparing and fitting the crown were explained.": "ਕ੍ਰਾਊਨ ਤਿਆਰ ਕਰਨ ਅਤੇ ਲਗਾਉਣ ਦੇ ਪੜਾਅ ਸਮਝਾਏ ਗਏ।",
+  "The fit and bite of the crown were checked with me.": "ਕ੍ਰਾਊਨ ਦੀ ਫਿਟਿੰਗ ਅਤੇ ਬਾਈਟ ਚੈੱਕ ਕੀਤੀ ਗਈ।",
+  "The bridge treatment plan and available options were explained.": "ਬ੍ਰਿਜ ਦੇ ਇਲਾਜ ਦੀ ਯੋਜਨਾ ਅਤੇ ਵਿਕਲਪ ਸਮਝਾਏ ਗਏ।",
+  "The steps involved in preparing and fitting the bridge were explained.": "ਬ੍ਰਿਜ ਤਿਆਰ ਕਰਨ ਅਤੇ ਲਗਾਉਣ ਦੇ ਪੜਾਅ ਸਮਝਾਏ ਗਏ।",
+  "The dentist discussed how to care for the bridge.": "ਬ੍ਰਿਜ ਦੀ ਸੰਭਾਲ ਕਿਵੇਂ ਕਰਨੀ ਹੈ, ਇਸ ਬਾਰੇ ਦੱਸਿਆ ਗਿਆ।",
+  "The fit and bite were checked during the appointment.": "ਅਪਾਇੰਟਮੈਂਟ ਦੌਰਾਨ ਫਿਟਿੰਗ ਅਤੇ ਬਾਈਟ ਚੈੱਕ ਕੀਤੀ ਗਈ।",
+  "The veneer options and treatment plan were explained clearly.": "ਵੀਨੀਅਰ ਦੇ ਵਿਕਲਪ ਅਤੇ ਇਲਾਜ ਦੀ ਯੋਜਨਾ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਈ ਗਈ।",
+  "The dentist discussed the expected appearance and limitations of veneers.": "ਵੀਨੀਅਰ ਤੋਂ ਕਿਹੋ ਜਿਹਾ ਨਤੀਜਾ ਉਮੀਦ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ ਅਤੇ ਇਸ ਦੀਆਂ ਸੀਮਾਵਾਂ ਬਾਰੇ ਦੱਸਿਆ ਗਿਆ।",
+  "The steps involved in the veneer procedure were explained.": "ਵੀਨੀਅਰ ਦੀ ਪ੍ਰਕਿਰਿਆ ਦੇ ਪੜਾਅ ਸਮਝਾਏ ਗਏ।",
+  "My questions about the veneer treatment were answered.": "ਵੀਨੀਅਰ ਦੇ ਇਲਾਜ ਬਾਰੇ ਮੇਰੇ ਸਵਾਲਾਂ ਦੇ ਜਵਾਬ ਦਿੱਤੇ ਗਏ।",
+  "The whitening procedure and available options were explained.": "ਦੰਦ ਚਿੱਟੇ ਕਰਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਵਿਕਲਪ ਸਮਝਾਏ ਗਏ।",
+  "The dentist explained what results I could reasonably expect.": "ਮੈਨੂੰ ਦੱਸਿਆ ਗਿਆ ਕਿ ਕਿਹੋ ਜਿਹਾ ਨਤੀਜਾ ਵਾਜਬ ਤੌਰ 'ਤੇ ਉਮੀਦ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।",
+  "The process and any precautions were explained before treatment.": "ਇਲਾਜ ਤੋਂ ਪਹਿਲਾਂ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਜ਼ਰੂਰੀ ਸਾਵਧਾਨੀਆਂ ਸਮਝਾਈਆਂ ਗਈਆਂ।",
+  "I received advice about caring for my teeth after whitening.": "ਦੰਦ ਚਿੱਟੇ ਕਰਨ ਤੋਂ ਬਾਅਦ ਸੰਭਾਲ ਬਾਰੇ ਸਲਾਹ ਦਿੱਤੀ ਗਈ।",
+  "The orthodontic treatment plan was explained in detail.": "ਦੰਦ ਸਿੱਧੇ ਕਰਨ ਦੇ ਇਲਾਜ ਦੀ ਯੋਜਨਾ ਵਿਸਥਾਰ ਨਾਲ ਸਮਝਾਈ ਗਈ।",
+  "The expected duration and stages of treatment were discussed.": "ਇਲਾਜ ਦੇ ਸੰਭਾਵਿਤ ਸਮੇਂ ਅਤੇ ਪੜਾਅ ਬਾਰੇ ਦੱਸਿਆ ਗਿਆ।",
+  "The available orthodontic options were explained clearly.": "ਦੰਦ ਸਿੱਧੇ ਕਰਨ ਦੇ ਉਪਲਬਧ ਵਿਕਲਪ ਸਪਸ਼ਟ ਤਰੀਕੇ ਨਾਲ ਸਮਝਾਏ ਗਏ।",
+  "I was given guidance about follow-up visits and oral hygiene.": "ਮੈਨੂੰ ਫਾਲੋ-ਅੱਪ ਵਿਜ਼ਿਟਾਂ ਅਤੇ ਮੂੰਹ ਦੀ ਸਫ਼ਾਈ ਬਾਰੇ ਜਾਣਕਾਰੀ ਦਿੱਤੀ ਗਈ।",
+  "The denture options and treatment process were explained clearly.": "ਨਕਲੀ ਦੰਦਾਂ ਦੇ ਵਿਕਲਪ ਅਤੇ ਇਲਾਜ ਦੀ ਪ੍ਰਕਿਰਿਆ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਈ ਗਈ।",
+  "The steps involved in making and fitting the denture were explained.": "ਨਕਲੀ ਦੰਦ ਤਿਆਰ ਕਰਨ ਅਤੇ ਫਿਟ ਕਰਨ ਦੇ ਪੜਾਅ ਸਮਝਾਏ ਗਏ।",
+  "The fit and comfort of the denture were discussed.": "ਨਕਲੀ ਦੰਦਾਂ ਦੀ ਫਿਟਿੰਗ ਅਤੇ ਆਰਾਮ ਬਾਰੇ ਗੱਲ ਕੀਤੀ ਗਈ।",
+  "I was given guidance on cleaning and caring for the denture.": "ਮੈਨੂੰ ਨਕਲੀ ਦੰਦਾਂ ਦੀ ਸਫ਼ਾਈ ਅਤੇ ਸੰਭਾਲ ਬਾਰੇ ਦੱਸਿਆ ਗਿਆ।"
+};
+const punjabiTreatment = {
+  "Consultation":"ਦੰਦਾਂ ਦੀ ਜਾਂਚ",
+  "Scaling & Polishing":"ਸਕੇਲਿੰਗ ਅਤੇ ਪਾਲਿਸ਼ਿੰਗ",
+  "Deep Cleaning":"ਡੀਪ ਕਲੀਨਿੰਗ",
+  "Composite Filling":"ਕੰਪੋਜ਼ਿਟ ਫਿਲਿੰਗ",
+  "Root Canal Treatment (RCT)":"ਰੂਟ ਕੈਨਾਲ ਇਲਾਜ (RCT)",
+  "Tooth Extraction":"ਦੰਦ ਕੱਢਣਾ",
+  "Surgical Extraction":"ਸਰਜੀਕਲ ਤਰੀਕੇ ਨਾਲ ਦੰਦ ਕੱਢਣਾ",
+  "Dental Implant":"ਡੈਂਟਲ ਇੰਪਲਾਂਟ",
+  "Zirconia Crown":"ਜ਼ਿਰਕੋਨੀਆ ਕ੍ਰਾਊਨ",
+  "PFM Crown":"PFM ਕ੍ਰਾਊਨ",
+  "Dental Bridge":"ਡੈਂਟਲ ਬ੍ਰਿਜ",
+  "Veneers":"ਵੀਨੀਅਰ",
+  "Teeth Whitening":"ਦੰਦਾਂ ਦੀ ਸਫ਼ਾਈ ਅਤੇ ਚਿੱਟਾਪਣ",
+  "Orthodontic Treatment":"ਦੰਦਾਂ ਨੂੰ ਸਿੱਧਾ ਕਰਨ ਦਾ ਇਲਾਜ",
+  "Dentures":"ਨਕਲੀ ਦੰਦ",
+  "Other":"ਹੋਰ"
+};
+const uiText = {
+  formTitle:["Tell us about your visit","ਆਪਣੀ ਵਿਜ਼ਿਟ ਬਾਰੇ ਦੱਸੋ"],
+  intro:["Thank you for visiting us in Samana.","ਸਮਾਣਾ ਵਿੱਚ ਸਾਡੇ ਕਲੀਨਿਕ ਆਉਣ ਲਈ ਧੰਨਵਾਦ।"],
+  treatment:["What treatment did you receive?","ਤੁਸੀਂ ਕਿਹੜਾ ਇਲਾਜ ਕਰਵਾਇਆ?"],
+  selectTreatment:["Select treatment","ਇਲਾਜ ਚੁਣੋ"],
+  rating:["How would you rate your visit?","ਤੁਸੀਂ ਆਪਣੀ ਵਿਜ਼ਿਟ ਨੂੰ ਕਿੰਨੇ ਸਟਾਰ ਦੇਵੋਗੇ?"],
+  facts:["Which of these describe your experience? (Choose any that apply)","ਤੁਹਾਡਾ ਤਜਰਬਾ ਕਿਹੋ ਜਿਹਾ ਰਿਹਾ? (ਜੋ ਗੱਲਾਂ ਸਹੀ ਲੱਗਦੀਆਂ ਹਨ, ਉਹ ਚੁਣੋ)"],
+  note:["Anything else you'd like to mention? (optional)","ਕੀ ਤੁਸੀਂ ਹੋਰ ਕੁਝ ਦੱਸਣਾ ਚਾਹੋਗੇ? (ਵਿਕਲਪਿਕ)"],
+  placeholder:["Write in your own words. Please avoid sharing private medical details.","ਆਪਣੇ ਸ਼ਬਦਾਂ ਵਿੱਚ ਲਿਖੋ। ਕਿਰਪਾ ਕਰਕੇ ਨਿੱਜੀ ਮੈਡੀਕਲ ਜਾਣਕਾਰੀ ਨਾ ਲਿਖੋ।"],
+  generate:["Create review wording options","ਰਿਵਿਊ ਦੇ ਸੁਝਾਅ ਬਣਾਓ"],
+  resultsTitle:["Four ways to describe your experience","ਆਪਣਾ ਤਜਰਬਾ ਦੱਸਣ ਦੇ ਚਾਰ ਤਰੀਕੇ"],
+  resultsIntro:["These are starting points, not ready-made testimonials. They use only the details you selected or wrote, in a more conversational style. Choose the one that sounds most like you and edit it in your own words.","ਇਹ ਸਿਰਫ਼ ਸ਼ੁਰੂਆਤੀ ਸੁਝਾਅ ਹਨ। ਇਹ ਤੁਹਾਡੇ ਵੱਲੋਂ ਚੁਣੀਆਂ ਜਾਂ ਲਿਖੀਆਂ ਗੱਲਾਂ 'ਤੇ ਆਧਾਰਿਤ ਹਨ। ਜੋ ਤੁਹਾਡੇ ਤਜਰਬੇ ਨਾਲ ਸਭ ਤੋਂ ਵੱਧ ਮੇਲ ਖਾਂਦਾ ਹੈ, ਉਹ ਚੁਣੋ ਅਤੇ ਲੋੜ ਅਨੁਸਾਰ ਸੋਧੋ।"],
+  copy:["Copy selected review & open Google Reviews","ਚੁਣਿਆ ਰਿਵਿਊ ਕਾਪੀ ਕਰੋ ਅਤੇ Google Reviews ਖੋਲ੍ਹੋ"],
+  compliance:["Your rating is your choice. The same Google review destination is available to every patient, whatever rating they select. Nothing is posted automatically.","ਸਟਾਰ ਰੇਟਿੰਗ ਤੁਹਾਡੀ ਆਪਣੀ ਚੋਣ ਹੈ। ਹਰ ਮਰੀਜ਼ ਲਈ Google Review ਦਾ ਇੱਕੋ ਲਿੰਕ ਹੈ। ਕੋਈ ਰਿਵਿਊ ਆਪਣੇ ਆਪ ਪੋਸਟ ਨਹੀਂ ਹੁੰਦਾ।"],
+  optionNames:[["Natural & simple","Friendly & conversational","What I appreciated","Another way to say it"],["ਸਧਾਰਨ ਅਤੇ ਕੁਦਰਤੀ","ਮਿਲਣਸਾਰ ਅੰਦਾਜ਼","ਮੈਨੂੰ ਕੀ ਚੰਗਾ ਲੱਗਿਆ","ਇੱਕ ਹੋਰ ਤਰੀਕਾ"]]
+};
+function translateStaticUI() {
+  const pa = currentLanguage === "pa";
+  const set = (id, key) => { const el=document.getElementById(id); if(el) el.textContent=uiText[key][pa?1:0]; };
+  set("formTitle","formTitle");
+  const intro=document.querySelector(".brand p"); if(intro) intro.textContent=uiText.intro[pa?1:0];
+  const labels=[...document.querySelectorAll("label")];
+  if(labels[1]) labels[1].textContent=uiText.treatment[pa?1:0];
+  if(labels[2]) labels[2].textContent=uiText.rating[pa?1:0];
+  const factLabel=[...labels].find(x=>x.textContent.includes("Which of these") || x.textContent.includes("ਤੁਹਾਡਾ ਤਜਰਬਾ"));
+  if(factLabel) factLabel.textContent=uiText.facts[pa?1:0];
+  const noteLabel=[...labels].find(x=>x.htmlFor==="ownwords");
+  if(noteLabel) noteLabel.textContent=uiText.note[pa?1:0];
+  const treatment=document.getElementById("treatment");
+  if(treatment) [...treatment.options].forEach((o,i)=>{ if(i===0)o.textContent=uiText.selectTreatment[pa?1:0]; else o.textContent=pa?(punjabiTreatment[o.value]||o.value):o.value; });
+  const note=document.getElementById("ownwords"); if(note) note.placeholder=uiText.placeholder[pa?1:0];
+  const gen=document.getElementById("generate"); if(gen) gen.textContent=uiText.generate[pa?1:0];
+  const resultsTitle=document.querySelector("#results h2"); if(resultsTitle) resultsTitle.textContent=uiText.resultsTitle[pa?1:0];
+  const resultsP=document.querySelector("#results > p"); if(resultsP) resultsP.textContent=uiText.resultsIntro[pa?1:0];
+  const compliance=document.querySelector("#results .notice"); if(compliance) compliance.textContent=uiText.compliance[pa?1:0];
+  const copy=document.getElementById("openGoogle"); if(copy) copy.textContent=uiText.copy[pa?1:0];
+  renderFactChoices();
+}
+document.getElementById("language").addEventListener("change", e => {
+  currentLanguage=e.target.value;
+  translateStaticUI();
+});
+
+function makeDrafts(treatment, facts, own) {
+  const t = treatment.toLowerCase();
+  const personal = own.trim().replace(/\s+/g, " ").replace(/[.?!]+$/, "");
+  if (currentLanguage === "pa") {
+    const tpa = punjabiTreatment[treatment] || treatment;
+    const selectedPa = facts.map(f => punjabiFacts[f] || f);
+    const ownPa = personal ? [`ਮੇਰੇ ਆਪਣੇ ਤਜਰਬੇ ਵਿੱਚ, ${personal}।`] : [];
+    const opener = [
+      `ਮੈਂ ${tpa} ਲਈ ਡਾ. ਕਰਨ ਡੈਂਟਲ ਕਲੀਨਿਕ ਗਿਆ/ਗਈ ਸੀ।`,
+      `ਮੈਂ ਡਾ. ਕਰਨ ਡੈਂਟਲ ਕਲੀਨਿਕ ਤੋਂ ${tpa} ਦਾ ਇਲਾਜ ਕਰਵਾਇਆ।`,
+      `ਹਾਲ ਹੀ ਵਿੱਚ ਮੈਂ ${tpa} ਲਈ ਡਾ. ਕਰਨ ਡੈਂਟਲ ਕਲੀਨਿਕ ਗਿਆ/ਗਈ ਸੀ।`,
+      `ਡਾ. ਕਰਨ ਡੈਂਟਲ ਕਲੀਨਿਕ ਵਿੱਚ ਮੇਰੀ ਵਿਜ਼ਿਟ ${tpa} ਲਈ ਸੀ।`
+    ];
+    const tidyPa = a => a.filter(Boolean).join(" ").replace(/\s+/g," ").trim();
+    return [
+      tidyPa([opener[0], ...selectedPa.slice(0,4), ...ownPa]),
+      tidyPa([opener[1], ...selectedPa.slice(0,3), ...ownPa]),
+      tidyPa([opener[2], ...(selectedPa.length ? [`ਮੈਨੂੰ ਖ਼ਾਸ ਤੌਰ 'ਤੇ ਇਹ ਗੱਲ ਚੰਗੀ ਲੱਗੀ ਕਿ ${selectedPa[0]}`] : []), ...selectedPa.slice(1,4), ...ownPa]),
+      tidyPa([opener[3], ...selectedPa.slice().reverse().slice(0,4), ...ownPa])
+    ];
+  }
+  const natural = {
+    "Dr. Karan was friendly, polite and approachable.": "Dr. Karan was really friendly and easy to talk to.",
+    "Dr. Karan listened patiently to my concerns.": "He took the time to listen to my concerns.",
+    "Dr. Karan explained things in a way I could understand.": "He explained things in a way that was easy to understand.",
+    "Dr. Karan explained the treatment plan and available options clearly.": "He went through the treatment plan and options with me clearly.",
+    "Dr. Karan answered my questions and made me feel heard.": "He answered the questions I had and made sure I understood.",
+    "Dr. Karan was professional and reassuring.": "I appreciated his calm and professional approach.",
+    "I felt comfortable discussing my dental concerns with Dr. Karan.": "I felt comfortable talking to him about my dental concerns.",
+    "The clinic was clean and comfortable.": "The clinic was neat, clean and comfortable.",
+    "The staff were courteous and welcoming.": "The staff were polite and welcoming.",
+    "The appointment process was smooth.": "The appointment went smoothly.",
+    "The team helped make the visit comfortable.": "The team helped me feel comfortable during my visit.",
+    "The clinic was well organised.": "The clinic seemed well organised.",
+    "Dr. Karan explained why I needed an RCT and how the procedure works.": "He explained why I needed a root canal and what the treatment would involve.",
+    "The different stages of the root canal treatment were explained clearly.": "He explained the different steps of the root canal clearly.",
+    "I was kept informed about what was happening during the procedure.": "He kept me informed about what was happening during the procedure.",
+    "The dentist checked on my comfort during the RCT.": "He checked that I was comfortable during the treatment.",
+    "The expected number of visits and treatment plan were explained to me.": "I had a clear idea of the treatment plan and expected visits.",
+    "I was given instructions about what to expect after the appointment.": "The aftercare instructions were explained to me."
+  };
+  const details = facts.map(f => natural[f] || f);
+  const ownLine = personal ? [`I’d also mention that ${personal.charAt(0).toLowerCase()}${personal.slice(1)}.`] : [];
+  const openers = [
+    `I visited Dr. Karan Dental Clinic for ${t}.`,
+    `I had my ${t} done at Dr. Karan Dental Clinic.`,
+    `I recently visited Dr. Karan Dental Clinic for ${t}.`,
+    `My visit to Dr. Karan Dental Clinic was for ${t}.`
+  ];
+  const clean = a => a.filter(Boolean).join(" ").replace(/\s+/g," ").trim();
+  return [
+    clean([openers[0], ...details.slice(0,4), ...ownLine]),
+    clean([openers[1], ...details.slice(0,3), ...ownLine]),
+    clean([openers[2], ...(details.length ? [`What I appreciated was that ${details[0].charAt(0).toLowerCase()}${details[0].slice(1)}`] : []), ...details.slice(1,4), ...ownLine]),
+    clean([openers[3], ...details.slice().reverse().slice(0,4), ...ownLine])
+  ];
+}
+
+document.getElementById("generate").addEventListener("click",()=>{
+  const treatment=document.getElementById("treatment").value;
+  const own=document.getElementById("ownwords").value;
+  if(!treatment){alert("Please select the treatment you received.");return}
+  if(!rating){alert("Please select your star rating.");return}
+  if(!selectedFacts.length && !own.trim()){alert("Please select at least one detail that was true about your visit, or add a short note in your own words. This helps ensure the draft reflects your real experience.");return}
+  const drafts=makeDrafts(treatment,selectedFacts,own);
+  const box=document.getElementById("drafts");box.innerHTML="";
+  drafts.forEach((d,i)=>{
+    const el=document.createElement("div");el.className="draft";
+    const head=document.createElement("div");head.className="drafthead";
+    const title=document.createElement("strong");title.textContent=(currentLanguage==="pa"?["ਸਧਾਰਨ ਅਤੇ ਕੁਦਰਤੀ","ਮਿਲਣਸਾਰ ਅੰਦਾਜ਼","ਮੈਨੂੰ ਕੀ ਚੰਗਾ ਲੱਗਿਆ","ਇੱਕ ਹੋਰ ਤਰੀਕਾ"]:["Natural & simple","Friendly & conversational","What I appreciated","Another way to say it"])[i] || `Option ${i+1}`;
+    const radio=document.createElement("input");radio.type="radio";radio.name="draftChoice";radio.value=i;radio.checked=i===0;
+    radio.addEventListener("change",()=>chosenDraft=i);
+    head.append(title,radio);
+    const ta=document.createElement("textarea");ta.value=d;ta.setAttribute("aria-label",`Review option ${i+1}`);
+    ta.addEventListener("input",()=>{drafts[i]=ta.value});
+    el.append(head,ta);box.append(el);
+  });
+  chosenDraft=0;document.getElementById("results").classList.remove("hidden");
+  document.getElementById("results").scrollIntoView({behavior:"smooth"});
+});
+document.getElementById("openGoogle").addEventListener("click",async()=>{
+  const radios=[...document.querySelectorAll('input[name="draftChoice"]')];
+  const selected=radios.find(r=>r.checked);if(selected)chosenDraft=Number(selected.value);
+  const text=document.querySelectorAll("#drafts textarea")[chosenDraft]?.value || "";
+  if(!text.trim()){alert("Please choose or write a review first.");return}
+  let copied=false;
+  try{await navigator.clipboard.writeText(text);copied=true}catch(e){
+    const temp=document.createElement("textarea");temp.value=text;document.body.appendChild(temp);temp.select();
+    try{copied=document.execCommand("copy")}catch(err){}temp.remove();
+  }
+  document.getElementById("status").textContent=copied
+    ?"Review text copied. Google Reviews is opening—paste your text, review it, and publish if you wish."
+    :"Google Reviews is opening. Please copy your selected text manually before pasting.";
+  window.open(GOOGLE_REVIEW_URL,"_blank","noopener");
+});
+function renderQR(){
+ const node=document.getElementById("qr");node.innerHTML="";
+ if(typeof QRCode==="undefined"){node.textContent="QR code library could not load.";return}
+ const patientUrl = location.origin + location.pathname;
+ new QRCode(node,{text:patientUrl,width:190,height:190,colorDark:"#3e3028",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
+}
+const isAdminView = new URLSearchParams(location.search).get("admin") === "1";
+if (isAdminView) {
+  document.getElementById("adminQR").classList.remove("hidden");
+}
+document.getElementById("downloadQR").addEventListener("click",()=>{
+ const img=document.querySelector("#qr img"),canvas=document.querySelector("#qr canvas");
+ const url=img?.src || canvas?.toDataURL("image/png");
+ if(!url){alert("QR code is not ready yet.");return}
+ const a=document.createElement("a");a.href=url;a.download="Dr-Karan-Dental-Clinic-Review-QR.png";a.click();
+});
+translateStaticUI();
+renderQR();
+</script>
+</body></html>
